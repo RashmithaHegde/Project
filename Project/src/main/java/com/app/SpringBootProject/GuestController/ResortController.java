@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.SpringBootProject.bean.ErrorResponse;
 import com.app.SpringBootProject.bean.Resort;
 import com.app.SpringBootProject.service.IResortService;
 
@@ -28,17 +29,19 @@ public class ResortController {
 	IResortService service;
 	
 	@PostMapping("/resort/register/{guestId}")
-	public ResponseEntity<Resort> register(@PathVariable long guestId, @RequestBody Resort resort)
+	public ResponseEntity<Object> register(@PathVariable long guestId, @RequestBody Resort resort)
 	{
+		ErrorResponse errorResponse = new ErrorResponse();
 		LOGGER.info("Entering into /resort/register/{guestId}");
 		Resort resort1=service.registerResort(resort,guestId);
 		if(resort1!=null)
 		{
 			LOGGER.info("Resort registration successfull......");
-			return new ResponseEntity<Resort>(resort1,HttpStatus.CREATED);
+			return new ResponseEntity<Object>(resort1, HttpStatus.CREATED);
 		}
 		LOGGER.error("Registration Failed......Try again");
-		return new ResponseEntity<Resort>(HttpStatus.BAD_REQUEST);
+		errorResponse.setErrorMessage("Something went wrong......Unable to book resort");
+		return new ResponseEntity<Object>(errorResponse, HttpStatus.BAD_REQUEST);
 	}
 	
 	
@@ -46,8 +49,9 @@ public class ResortController {
 	
  
 	@PutMapping("/resort/update/{rReservationNumber}")
-	public ResponseEntity<Resort> updateResort(@PathVariable long rReservationNumber  ,@RequestBody Resort resort)
+	public ResponseEntity<Object> updateResort(@PathVariable long rReservationNumber, @RequestBody Resort resort)
 	{
+		ErrorResponse errorResponse = new ErrorResponse();
 		LOGGER.info("Entering into /resort/update/{rReservationNumber}");
 		long status=0;
 		
@@ -57,26 +61,29 @@ public class ResortController {
 		if(status>0)
 		{
 			LOGGER.info("Resort updated successfully......");
-			return new ResponseEntity<Resort>(resort1, HttpStatus.CREATED);
+			return new ResponseEntity<Object>(resort1, HttpStatus.CREATED);
 		}
 		LOGGER.error("Updation Failed......Try again");
-		return new ResponseEntity<Resort>(HttpStatus.BAD_REQUEST);
+		errorResponse.setErrorMessage("Unable to update resort");
+		return new ResponseEntity<Object>(errorResponse, HttpStatus.BAD_REQUEST);
 		
 		
 	}
 	
 	@GetMapping("/resort/get/{rReservationNumber}")
-	public ResponseEntity<Resort> getResort(@PathVariable long rReservationNumber )
+	public ResponseEntity<Object> getResort(@PathVariable long rReservationNumber)
 	{
+		ErrorResponse errorResponse = new ErrorResponse();
 		LOGGER.info("Entering into /resort/get/{rReservationNumber}");
 		Resort resort=service.getResort(rReservationNumber);
 		if(resort!=null)
 		{
 			LOGGER.info("Retrieved Resort information successfull......");
-			return new ResponseEntity<Resort>(resort,HttpStatus.CREATED);
+			return new ResponseEntity<Object>(resort, HttpStatus.CREATED);
 		}
 		LOGGER.error("Retrieving Resort information Failed......Try again");
-		return new ResponseEntity<Resort>(HttpStatus.BAD_REQUEST);
+		errorResponse.setErrorMessage("Unable to get resort information");
+		return new ResponseEntity<Object>(errorResponse, HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("/resort/getall/{guestId}")

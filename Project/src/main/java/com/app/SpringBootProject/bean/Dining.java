@@ -2,10 +2,13 @@ package com.app.SpringBootProject.bean;
 
 import java.util.Date;
 
+import javax.validation.constraints.Size;
+
 public class Dining {
 	
 	private long dReservationNumber;
 	private long guestId;
+	@Size(max = 50)
 	private String diningType ;
 	private Date arrivalDate;
 	private int noOfPeople;

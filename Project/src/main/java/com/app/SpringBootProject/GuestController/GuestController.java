@@ -8,8 +8,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,6 +25,7 @@ import com.app.SpringBootProject.bean.Resort;
 import com.app.SpringBootProject.service.IDiningService;
 import com.app.SpringBootProject.service.IGuestService;
 import com.app.SpringBootProject.service.IResortService;
+import com.app.SpringBootProject.validator.GuestValidator;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -39,6 +43,14 @@ public class GuestController {
 
 	@Autowired
 	IResortService resortService;
+
+	@Autowired
+	private GuestValidator guestValidator;
+
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.addValidators(guestValidator);
+	}
 
 	@PostMapping("/guest/login")
 	public ResponseEntity<Guest> login(@RequestBody Guest guest) {
@@ -59,7 +71,7 @@ public class GuestController {
 	}
 
 	@PostMapping("/guest/register")
-	public ResponseEntity<Guest> register(@RequestBody Guest guest) {
+	public ResponseEntity<Guest> register(@RequestBody @Validated Guest guest) {
 
 		LOGGER.info("Entering into /guest/register");
 
