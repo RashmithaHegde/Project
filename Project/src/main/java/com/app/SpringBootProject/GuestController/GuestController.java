@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,7 @@ import com.app.SpringBootProject.service.IGuestService;
 import com.app.SpringBootProject.service.IResortService;
 
 @RestController
-
+@CrossOrigin(origins = "*")
 public class GuestController {
 	// private static final Logger LOGGER =
 	// Logger.getLogger("GuestController.class");
@@ -39,19 +40,6 @@ public class GuestController {
 	@Autowired
 	IResortService resortService;
 
-	/*
-	 * @PostMapping("/guest/login") public String login(@RequestBody Guest guest) {
-	 * 
-	 * long guestId=service.validate(guest.getEmail(), guest.getPassword());
-	 * 
-	 * if(guestId==0) { LOGGER.warning("Please register yourself before login");
-	 * return "Please register yourself before login.";
-	 * 
-	 * } LOGGER.warning("You have logged in successfully......"); return
-	 * "You have logged in successfully. Your guest id is "+guestId;
-	 * 
-	 * }
-	 */
 	@PostMapping("/guest/login")
 	public ResponseEntity<Guest> login(@RequestBody Guest guest) {
 		LOGGER.info("Entering into /guest/login");
@@ -60,10 +48,11 @@ public class GuestController {
 
 		if (guest1 == null) {
 
-			LOGGER.error("Registration Failed......Try again");
+			LOGGER.error("Login Failed......Try again");
 			return new ResponseEntity<Guest>(HttpStatus.NOT_FOUND);
 
 		}
+
 		LOGGER.info("Successfully logged in");
 		return new ResponseEntity<Guest>(guest1, HttpStatus.ACCEPTED);
 
