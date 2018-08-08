@@ -21,15 +21,29 @@ import com.app.SpringBootProject.bean.Dining;
 import com.app.SpringBootProject.bean.ErrorResponse;
 import com.app.SpringBootProject.service.IDiningService;
 
+/**
+ * The Class DiningController.
+ */
 @RestController
 @CrossOrigin(origins = "*")
 public class DiningController {
 
+	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LogManager.getLogger(DiningController.class);
 
+	/** The service. */
 	@Autowired
 	IDiningService service;
 
+	/**
+	 * Register.
+	 *
+	 * @param guestId
+	 *            the guest id
+	 * @param dining
+	 *            the dining
+	 * @return the response entity
+	 */
 	@PostMapping("/dining/register/{guestId}")
 	public ResponseEntity<Object> register(@Valid @PathVariable long guestId, @RequestBody Dining dining) {
 		ErrorResponse errorResponse = new ErrorResponse();
@@ -45,6 +59,15 @@ public class DiningController {
 		return new ResponseEntity<Object>(errorResponse, HttpStatus.BAD_REQUEST);
 	}
 
+	/**
+	 * Update dining.
+	 *
+	 * @param dReservationNumber
+	 *            the d reservation number
+	 * @param dining
+	 *            the dining
+	 * @return the response entity
+	 */
 	@PutMapping("/dining/update/{dReservationNumber}")
 	public ResponseEntity<Object> updateDining(@PathVariable long dReservationNumber, @RequestBody Dining dining) {
 		ErrorResponse errorResponse = new ErrorResponse();
@@ -63,6 +86,13 @@ public class DiningController {
 
 	}
 
+	/**
+	 * Gets the dining.
+	 *
+	 * @param dReservationNumber
+	 *            the d reservation number
+	 * @return the dining
+	 */
 	@GetMapping("/dining/get/{dReservationNumber}")
 	public ResponseEntity<Object> getDining(@PathVariable long dReservationNumber) {
 		ErrorResponse errorResponse = new ErrorResponse();
@@ -79,6 +109,13 @@ public class DiningController {
 		return new ResponseEntity<Object>(errorResponse, HttpStatus.BAD_REQUEST);
 	}
 
+	/**
+	 * Gets the all dining.
+	 *
+	 * @param guestId
+	 *            the guest id
+	 * @return the all dining
+	 */
 	@GetMapping("/dining/getall/{guestId}")
 	public List<Dining> getAllDining(@PathVariable long guestId) {
 		LOGGER.info("Entering into /dining/getall/{guestId}");
@@ -92,6 +129,13 @@ public class DiningController {
 		return dining;
 	}
 
+	/**
+	 * Cancel dining.
+	 *
+	 * @param dReservationNumber
+	 *            the d reservation number
+	 * @return the response entity
+	 */
 	@PutMapping("/dining/cancel/{dReservationNumber}")
 	public ResponseEntity<Dining> cancelDining(@PathVariable long dReservationNumber) {
 		LOGGER.info("Entering into /dining/cancel/{dReservationNumber}");

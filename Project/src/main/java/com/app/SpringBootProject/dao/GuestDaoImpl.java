@@ -12,18 +12,27 @@ import org.springframework.stereotype.Repository;
 import com.app.SpringBootProject.bean.Guest;
 import com.app.SpringBootProject.bean.GuestRowMapper;
 
+/**
+ * The Class GuestDaoImpl.
+ */
 @Repository
 public class GuestDaoImpl implements IGuestDao {
 
-	// private static final Logger LOGGER = Logger.getLogger("GuestDaoImpl.class");
-	// private static final Logger LOGGER = Logger.getManager("GuestDaoImpl.class");
+	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LogManager.getLogger(GuestDaoImpl.class);
-
+	/** The jdbc template. */
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-
+	/** The date. */
 	Date date = new Date();
 
+	/**
+	 * Register guest.
+	 *
+	 * @param guest
+	 *            the guest
+	 * @return the guest
+	 */
 	@Override
 	public Guest registerGuest(Guest guest) {
 		LOGGER.info("Entering into register guest");
@@ -49,6 +58,15 @@ public class GuestDaoImpl implements IGuestDao {
 
 	}
 
+	/**
+	 * Update guest.
+	 *
+	 * @param guest
+	 *            the guest
+	 * @param guestId
+	 *            the guest id
+	 * @return the long
+	 */
 	@Override
 	public long updateGuest(Guest guest, long guestId) {
 		LOGGER.info("Entering into updateGuest");
@@ -68,6 +86,13 @@ public class GuestDaoImpl implements IGuestDao {
 
 	}
 
+	/**
+	 * Gets the guest.
+	 *
+	 * @param guestId
+	 *            the guest id
+	 * @return the guest
+	 */
 	@Override
 	public Guest getGuest(long guestId) {
 		LOGGER.info("Entering into getGuest");
@@ -84,6 +109,15 @@ public class GuestDaoImpl implements IGuestDao {
 		return guest;
 	}
 
+	/**
+	 * Validate.
+	 *
+	 * @param email
+	 *            the email
+	 * @param password
+	 *            the password
+	 * @return the guest
+	 */
 	@Override
 	public Guest validate(String email, String password) {
 

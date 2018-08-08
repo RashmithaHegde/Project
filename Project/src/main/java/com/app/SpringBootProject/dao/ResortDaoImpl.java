@@ -14,17 +14,32 @@ import org.springframework.transaction.annotation.Transactional;
 import com.app.SpringBootProject.bean.Resort;
 import com.app.SpringBootProject.bean.ResortRowMapper;
 
+/**
+ * The Class ResortDaoImpl.
+ */
 @Transactional
 @Repository
 public class ResortDaoImpl implements IResortDao {
 
+	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LogManager.getLogger(ResortDaoImpl.class);
 
+	/** The jdbc template. */
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
+	/** The date. */
 	Date date = new Date();
 
+	/**
+	 * Register resort.
+	 *
+	 * @param resort
+	 *            the resort
+	 * @param guestId
+	 *            the guest id
+	 * @return the resort
+	 */
 	@Override
 	public Resort registerResort(Resort resort, long guestId) {
 		LOGGER.info("Entering into registerResort");
@@ -60,6 +75,15 @@ public class ResortDaoImpl implements IResortDao {
 		return resort1;
 	}
 
+	/**
+	 * Update resort.
+	 *
+	 * @param resort
+	 *            the resort
+	 * @param rReservationNumber
+	 *            the r reservation number
+	 * @return the long
+	 */
 	@Override
 	public long updateResort(Resort resort, long rReservationNumber) {
 
@@ -79,6 +103,13 @@ public class ResortDaoImpl implements IResortDao {
 		return success;
 	}
 
+	/**
+	 * Gets the resort.
+	 *
+	 * @param rReservationNumber
+	 *            the r reservation number
+	 * @return the resort
+	 */
 	@Override
 	public Resort getResort(long rReservationNumber) {
 		LOGGER.info("Entering into getResort");
@@ -94,6 +125,13 @@ public class ResortDaoImpl implements IResortDao {
 		return resort;
 	}
 
+	/**
+	 * Gets the all resort.
+	 *
+	 * @param guestId
+	 *            the guest id
+	 * @return the all resort
+	 */
 	@Override
 	public List<Resort> getAllResort(long guestId) {
 		LOGGER.info("Entering into getAllResort");
@@ -109,6 +147,13 @@ public class ResortDaoImpl implements IResortDao {
 		return resort;
 	}
 
+	/**
+	 * Cancel resort.
+	 *
+	 * @param rReservationNumber
+	 *            the r reservation number
+	 * @return the long
+	 */
 	@Override
 	public long cancelResort(long rReservationNumber) {
 		LOGGER.info("Entering into cancelResort");

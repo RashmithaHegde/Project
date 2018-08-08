@@ -13,17 +13,32 @@ import org.springframework.stereotype.Repository;
 import com.app.SpringBootProject.bean.Dining;
 import com.app.SpringBootProject.bean.DiningRowMapper;
 
+/**
+ * The Class DiningDaoImpl.
+ */
 @Repository
 public class DiningDaoImpl implements IDiningDao {
 
+	/** The jdbc template. */
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
+	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LogManager.getLogger(DiningDaoImpl.class);
 
+	/** The date. */
 	Date date = new Date();
-	// java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
+
+	/**
+	 * Register dining.
+	 *
+	 * @param dining
+	 *            the dining
+	 * @param guestId
+	 *            the guest id
+	 * @return the dining
+	 */
 	@Override
 	public Dining registerDining(Dining dining, long guestId) {
 		LOGGER.info("Entering into register dining");
@@ -61,6 +76,15 @@ public class DiningDaoImpl implements IDiningDao {
 
 	}
 
+	/**
+	 * Update dining.
+	 *
+	 * @param dining
+	 *            the dining
+	 * @param dReservationNumber
+	 *            the d reservation number
+	 * @return the long
+	 */
 	@Override
 	public long updateDining(Dining dining, long dReservationNumber) {
 
@@ -84,6 +108,13 @@ public class DiningDaoImpl implements IDiningDao {
 
 	}
 
+	/**
+	 * Gets the dining.
+	 *
+	 * @param dReservationNumber
+	 *            the d reservation number
+	 * @return the dining
+	 */
 	@Override
 	public Dining getDining(long dReservationNumber) {
 		LOGGER.info("Entering into getDining");
@@ -100,6 +131,13 @@ public class DiningDaoImpl implements IDiningDao {
 		return dining;
 	}
 
+	/**
+	 * Gets the all dining.
+	 *
+	 * @param guestId
+	 *            the guest id
+	 * @return the all dining
+	 */
 	@Override
 	public List<Dining> getAllDining(long guestId) {
 		LOGGER.info("Entering into getAllDining");
@@ -117,6 +155,13 @@ public class DiningDaoImpl implements IDiningDao {
 
 	}
 
+	/**
+	 * Cancel dining.
+	 *
+	 * @param dReservationNumber
+	 *            the d reservation number
+	 * @return the long
+	 */
 	@Override
 	public long cancelDining(long dReservationNumber) {
 		LOGGER.info("Entering into cancelDining");

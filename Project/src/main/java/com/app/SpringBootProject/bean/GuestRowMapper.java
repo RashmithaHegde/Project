@@ -5,6 +5,9 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
+/**
+ * The Class GuestRowMapper.
+ */
 public class GuestRowMapper implements RowMapper<Guest>  {
 
 	@Override

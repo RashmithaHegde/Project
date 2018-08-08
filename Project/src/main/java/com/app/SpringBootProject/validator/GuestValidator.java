@@ -35,7 +35,7 @@ public class GuestValidator implements Validator {
 		ValidationUtils.rejectIfEmpty(errors, "password", "guest.password.empty");
 
 		Guest guest = (Guest) obj;
-		Pattern pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+		Pattern pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,3}$", Pattern.CASE_INSENSITIVE);
 		if (!(pattern.matcher(guest.getEmail()).matches())) {
 			errors.rejectValue("email", "guest.email.invalid");
 		}

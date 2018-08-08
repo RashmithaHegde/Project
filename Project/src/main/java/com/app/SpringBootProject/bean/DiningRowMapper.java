@@ -5,6 +5,9 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
+/**
+ * The Class DiningRowMapper.
+ */
 public class DiningRowMapper implements RowMapper<Dining> {
 
 	@Override
